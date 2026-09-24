@@ -1,0 +1,23 @@
+{
+"name": "SIMMCO Qualified Basic Rigger & Signal Person Academy",
+"short_name": "SIMMCO Rigger",
+"start_url": "./index.html",
+"display": "standalone",
+"background_color": "#111827",
+"theme_color": "#f97316",
+"orientation": "portrait",
+"icons": [
+{
+"src": "./SIMMCO%20Logo%202.jpg",
+"sizes": "192x192",
+"type": "image/jpeg",
+"purpose": "any maskable"
+},
+{
+"src": "./SIMMCO%20Logo%202.jpg",
+"sizes": "512x512",
+"type": "image/jpeg",
+"purpose": "any maskable"
+}
+]
+}
