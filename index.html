@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SIMMCO Qualified Basic Rigger & Signal Person Academy</title>
+    
+    <!-- PWA Manifest & iOS Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#f97316">
+    <link rel="apple-touch-icon" href="./SIMMCO%20Logo%202.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SIMMCO Rigger">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        simmco: { orange: '#f97316', dark: '#111827', gray: '#1f2937', light: '#f3f4f6' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #030712; color: #e5e7eb; -webkit-tap-highlight-color: transparent; }
+        .heading-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #f97316; border-radius: 4px; }
+        input[type="radio"] { accent-color: #f97316; width: 1.25rem; height: 1.25rem; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: #f97316; cursor: pointer; border-radius: 50%; }
+        
+        /* Strict Single-Page Landscape Print Styles for Certificate */
+        @media print {
+            body, html { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; background: white !important; }
+            body * { visibility: hidden; }
+            #certificate-modal, #certificate-modal * { visibility: visible; }
+            #certificate-modal { 
+                position: fixed !important; 
+                top: 0 !important; left: 0 !important; 
+                width: 100vw !important; height: 100vh !important; 
+                background: white !important; 
+                display: flex !important; 
+                align-items: center !important; 
+                justify-content: center !important; 
+                padding: 0 !important; 
+                margin: 0 !important;
+                overflow: hidden !important;
+                z-index: 999999;
+            }
+            #cert-wrap { 
+                position: relative !important;
+                width: 100% !important; 
+                height: 100% !important; 
+                max-width: 10.5in !important; 
+                max-height: 7.8in !important; 
+                border: none !important; 
+                box-shadow: none !important; 
+                padding: 15px !important; 
+                margin: auto !important;
+                transform: none !important;
+                page-break-after: avoid;
+                page-break-before: avoid;
+                page-break-inside: avoid;
+            }
+            #certificate-modal button, #certificate-modal .flex.gap-4, #mobile-print-tip { display: none !important; }
+            @page { size: landscape; margin: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <header class="bg-simmco-dark border-b-4 border-simmco-orange sticky top-0 z-40 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="./SIMMCO%20Logo%202.jpg" alt="SIMMCO Logo" class="h-14 w-auto object-contain rounded-md shadow-sm bg-gray-200 px-2 py-1" onerror="this.src='https://placehold.co/100x50/f97316/ffffff?text=SIMMCO'">
+                <h1 class="heading-font text-xl md:text-2xl font-bold text-white tracking-wider hidden sm:block">Qualified Basic Rigger & Signal Person Academy</h1>
+            </div>
+            <div id="header-student-info" class="hidden text-sm font-bold text-white text-right"></div>
+        </div>
+        <div id="progress-container" class="hidden w-full bg-gray-800 h-2">
+            <div id="progress-bar" class="bg-simmco-orange h-2 transition-all duration-500 ease-out" style="width: 0%"></div>
+        </div>
+    </header>
+
+    <main id="view-registration" class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-simmco-gray max-w-md w-full p-8 rounded-xl border border-gray-700 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-simmco-orange"></div>
+            <img src="./SIMMCO%20Logo%202.jpg" alt="SIMMCO Logo" class="w-full h-20 object-contain mb-6 rounded bg-gray-200 p-2" onerror="this.src='https://placehold.co/300x80/f97316/ffffff?text=SIMMCO+LOGO'">
+            <h2 class="heading-font text-3xl text-white mb-2 text-center">Qualified Basic Rigger</h2>
+            <p class="text-gray-400 text-center mb-8 text-sm">Enter your details to begin the 3.5-hour digital academy.</p>
+            
+            <form id="registration-form" onsubmit="app.registerStudent(event)" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-1 uppercase">Full Name</label>
+                    <input type="text" id="reg-name" required class="w-full bg-gray-900 border border-gray-600 rounded p-3 text-white focus:outline-none focus:border-simmco-orange transition-colors" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-1 uppercase">Employee ID / Badge #</label>
+                    <input type="text" id="reg-id" required class="w-full bg-gray-900 border border-gray-600 rounded p-3 text-white focus:outline-none focus:border-simmco-orange transition-colors" placeholder="EMP-12345">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-1 uppercase">Date</label>
+                    <input type="date" id="reg-date" required class="w-full bg-gray-900 border border-gray-600 rounded p-3 text-white focus:outline-none focus:border-simmco-orange transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-simmco-orange hover:bg-orange-600 text-white font-bold py-4 px-4 rounded-lg transition-colors shadow-lg heading-font text-xl mt-4 cursor-pointer">
+                    START ACADEMY
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <main id="view-course" class="hidden flex-grow flex flex-col md:flex-row max-w-7xl mx-auto w-full">
+        <aside class="w-full md:w-80 bg-simmco-dark border-r border-gray-800 md:min-h-[calc(100vh-5rem)] p-4 overflow-y-auto shrink-0">
+            <h3 class="heading-font text-gray-400 text-sm mb-4">COURSE MODULES</h3>
+            <ul id="module-list" class="space-y-2"></ul>
+            
+            <div id="certificate-banner" class="hidden mt-8 p-4 bg-green-900/50 border border-green-500 rounded-lg text-center">
+                <p class="text-green-400 font-bold mb-2">🎉 Academy Completed!</p>
+                <button onclick="app.showCertificate()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded transition-colors shadow-lg cursor-pointer">
+                    View Certificate
+                </button>
+            </div>
+        </aside>
+        
+        <section class="flex-grow p-4 md:p-8 relative bg-[#0a0f1a] overflow-y-auto">
+            <div id="module-content" class="prose prose-invert prose-orange max-w-4xl mx-auto"></div>
+            
+            <div id="quiz-container" class="hidden mt-12 bg-simmco-gray p-6 rounded-xl border border-gray-700 shadow-xl max-w-4xl mx-auto">
+                <h3 class="heading-font text-2xl text-simmco-orange mb-4 border-b border-gray-700 pb-2 flex items-center gap-2">
+                    Module Knowledge Check
+                </h3>
+                <p class="text-sm text-gray-400 mb-6 font-bold">You must score 100% to proceed to the next module.</p>
+                <div id="quiz-questions" class="space-y-8"></div>
+                
+                <div id="quiz-feedback" class="hidden mt-6 p-4 rounded-lg font-bold text-center"></div>
+                
+                <button id="submit-quiz-btn" onclick="app.submitQuiz()" class="w-full mt-8 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-4 rounded text-xl transition-colors shadow-lg cursor-pointer">
+                    Submit Answers
+                </button>
+                <button id="next-module-btn" onclick="app.nextModule()" class="hidden w-full mt-6 bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-4 rounded text-xl transition-colors shadow-lg cursor-pointer">
+                    Continue to Next Module &rarr;
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <div id="certificate-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-95 flex flex-col items-center justify-start overflow-y-auto p-2 sm:p-6 md:p-10">
+        
+        <!-- Mobile Print orientation helper notice -->
+        <div id="mobile-print-tip" class="w-full max-w-[1100px] mb-3 bg-blue-900/80 border border-blue-500 text-blue-200 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium flex items-center justify-between shadow-lg">
+            <span>📱 <strong>Mobile Print Tip:</strong> In your print preview settings, please select <strong>Landscape</strong> orientation.</span>
+            <button onclick="this.parentElement.style.display='none'" class="ml-2 text-blue-300 hover:text-white font-bold px-2">✕</button>
+        </div>
+
+        <div id="cert-wrap" class="bg-[#faf9f6] text-black w-full max-w-[1100px] aspect-[11/8.5] p-6 sm:p-10 relative shadow-2xl border border-gray-200 flex flex-col justify-between shrink-0" style="font-family: 'Times New Roman', Times, serif;">
+            
+            <!-- Ornate Border -->
+            <div class="absolute inset-3 sm:inset-4 border-[6px] sm:border-[10px] border-[#1e3a8a] pointer-events-none"></div>
+            <div class="absolute inset-5 sm:inset-6 border-2 border-[#d4af37] pointer-events-none"></div>
+            <div class="absolute inset-6 sm:inset-7 border border-[#1e3a8a] pointer-events-none"></div>
+
+            <!-- Header -->
+            <div class="flex flex-col items-center justify-center text-center mt-1 sm:mt-2 z-10">
+                <img src="./SIMMCO%20Logo%202.jpg" alt="SIMMCO Logo" class="h-14 sm:h-20 object-contain mb-2 sm:mb-4" onerror="this.src='https://placehold.co/100x50/1e3a8a/ffffff?text=SIMMCO'">
+                <h1 class="text-2xl sm:text-4xl font-bold uppercase tracking-widest text-[#1e3a8a] mb-1" style="font-family: 'Oswald', sans-serif;">Qualified Basic Rigger</h1>
+                <h2 class="text-lg sm:text-2xl font-bold uppercase tracking-widest text-[#1e3a8a]" style="font-family: 'Oswald', sans-serif;">& Signal Person Certificate</h2>
+            </div>
+
+            <!-- Body -->
+            <div class="text-center z-10 my-1 sm:my-2">
+                <p class="text-base sm:text-xl text-gray-600 mb-1 sm:mb-2 italic">This document proudly certifies that</p>
+                <h2 id="cert-student-name" class="text-3xl sm:text-5xl font-bold text-gray-900 border-b-2 sm:border-b-4 border-gray-400 inline-block px-6 sm:px-12 pb-1 sm:pb-2 mb-2 sm:mb-3 tracking-wide">Student Name</h2>
+                <p class="text-xs sm:text-base text-gray-800 leading-relaxed max-w-4xl mx-auto font-bold mb-1">
+                    Has successfully completed the 3.5-hour training academy in accordance with OSHA and ASME standards.
+                </p>
+                <p class="text-[11px] sm:text-sm text-gray-600 max-w-3xl mx-auto hidden sm:block">
+                    The bearer has demonstrated proficiency in load calculations, hardware inspection, rigging hitches, center of gravity analysis, site hazard mitigation, and mobile crane hand signaling.
+                </p>
+            </div>
+
+            <!-- Footer / Signatures -->
+            <div class="flex flex-row justify-between items-end mb-2 sm:mb-4 px-4 sm:px-12 z-10">
+                
+                <!-- Date Section -->
+                <div class="text-center w-40 sm:w-60">
+                    <p id="cert-completion-date" class="text-sm sm:text-xl font-bold text-gray-900 border-b-2 border-gray-800 pb-1 mb-1">01/01/2026</p>
+                    <p class="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest">Date of Completion</p>
+                    <p class="text-[10px] sm:text-xs text-gray-900 mt-1 font-bold">Employee ID: <span id="cert-student-id">EMP-123</span></p>
+                </div>
+
+                <!-- Gold Seal Mockup -->
+                <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-full border-4 border-dashed border-[#d4af37] bg-[#fef08a] flex items-center justify-center shadow-lg relative shrink-0">
+                    <div class="absolute inset-1 border-2 border-[#d4af37] rounded-full"></div>
+                    <div class="text-center">
+                        <p class="text-[#9a7b21] text-[7px] sm:text-[9px] font-bold uppercase tracking-widest leading-tight">SIMMCO<br>Academy</p>
+                        <p class="text-[#b45309] font-bold text-[10px] sm:text-xs my-0.5">SEAL</p>
+                        <p class="text-[#9a7b21] text-[7px] sm:text-[9px] font-bold uppercase tracking-widest leading-tight">Qualified<br>Rigger</p>
+                    </div>
+                </div>
+
+                <!-- Signature Section -->
+                <div class="text-center w-44 sm:w-68">
+                    <div class="h-12 sm:h-16 flex items-end justify-center mb-1">
+                        <span style="font-family: 'Brush Script MT', 'Lucida Handwriting', cursive; font-size: 2.2rem; color: #1e3a8a; line-height: 0.5;" class="sm:text-[3.5rem]">Darrell Rimmer</span>
+                    </div>
+                    <div class="border-t-2 border-gray-800 pt-1 mx-auto">
+                        <p class="text-sm sm:text-lg font-bold text-gray-900 uppercase tracking-widest">Darrell Rimmer</p>
+                        <p class="text-[10px] sm:text-xs font-bold text-gray-600 uppercase tracking-wider">SIMMCO Crane & Rigging</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3 sm:gap-4 mt-6 pb-12 flex-wrap justify-center w-full max-w-5xl z-20">
+            <button onclick="window.print()" class="bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-3 px-6 sm:px-8 rounded-lg shadow-xl transition-colors flex items-center gap-2 cursor-pointer text-sm sm:text-base">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Print / Save PDF
+            </button>
+            <button onclick="app.emailHR()" class="bg-simmco-orange hover:bg-orange-600 text-white font-bold py-3 px-6 sm:px-8 rounded-lg shadow-xl transition-colors flex items-center gap-2 cursor-pointer text-sm sm:text-base">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                Email Record to HR
+            </button>
+            <button onclick="document.getElementById('certificate-modal').classList.add('hidden')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 sm:px-8 rounded-lg shadow-xl transition-colors flex items-center gap-2 cursor-pointer text-sm sm:text-base">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Notification Toast -->
+    <div id="app-toast" class="hidden fixed bottom-6 right-6 z-50 bg-gray-900 border-2 border-simmco-orange text-white px-6 py-4 rounded-xl shadow-2xl max-w-md transition-all">
+        <p id="toast-msg" class="text-sm font-bold"></p>
+    </div>
+
+    <script>
+        const app = {
+            state: { student: { name: '', id: '', date: '' }, currentModuleIndex: 0, completedModules: [] },
+            
+            modules: [
+                {
+                    id: 'mod1',
+                    title: "1. Introduction to Rigging",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 1: The Bridge Between Power and Load</h2>
+                        <div class="aspect-w-16 aspect-h-9 mb-6 rounded-lg overflow-hidden border-2 border-gray-700 bg-black">
+                            <iframe width="100%" height="400" src="https://www.youtube.com/embed/KgKOITfrLo8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="bg-gray-800 p-6 rounded-lg border-l-4 border-simmco-orange space-y-4 text-gray-300">
+                            <p>Rigging is the science and discipline of connecting a load to a crane safely. It's the bridge between the machine's lifting power and the object being moved. Gravity doesn't care how modern your crane is; physics always wins.</p>
+                            <h3 class="font-bold text-white text-xl mt-4">Roles on the Site</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Qualified Rigger:</strong> OSHA defines this as a person possessing a recognized degree, certificate, or extensive knowledge, training, and experience to solve rigging problems.</li>
+                                <li><strong>Competent Person:</strong> Capable of identifying existing hazards and authorized to take prompt corrective measures to eliminate them.</li>
+                                <li><strong>Stop Work Authority:</strong> ANY person has the authority and responsibility to halt a lift if an unsafe condition is observed.</li>
+                            </ul>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "According to the introduction, what is rigging defined as?", options: ["Operating the crane's hydraulic pumps.", "The science and discipline of connecting a load to a crane safely.", "Directing traffic around a construction site."], answer: 1 },
+                        { q: "Who does OSHA define as having extensive experience to solve rigging problems?", options: ["Competent Person", "Qualified Rigger", "Crane Operator"], answer: 1 },
+                        { q: "Who has the authority to issue an emergency stop if an unsafe condition is observed?", options: ["Only the Qualified Rigger", "Only the Crane Operator", "Anyone on the job site"], answer: 2 },
+                        { q: "What ancient tool did the Greeks introduce to multiply vertical lifting force?", options: ["The compound pulley system", "Hydraulic cylinders", "The diesel engine"], answer: 0 },
+                        { q: "What was the major limitation of natural fiber ropes?", options: ["They were too expensive", "They broke under high tension and failed instantly without warning", "They were too heavy to carry"], answer: 1 },
+                        { q: "Who is responsible for identifying hazards and is authorized to correct them?", options: ["Competent Person", "Signal Person", "Apprentice"], answer: 0 },
+                        { q: "What material revolutionized heavy lifting in the 19th century?", options: ["Nylon webs", "Braided wire rope", "Carbon fiber"], answer: 1 },
+                        { q: "What is a key visual advantage of wire rope over hemp rope regarding failure?", options: ["It never fails", "Outer wires break first, giving visual evidence of wear", "It changes color when stressed"], answer: 1 },
+                        { q: "What force must riggers constantly calculate and respect?", options: ["Wind", "Friction", "Gravity"], answer: 2 },
+                        { q: "What is the primary dependency for millions of dollars and lives every time a load is moved?", options: ["The rigger on the ground", "The crane's computer system", "The weather conditions"], answer: 0 }
+                    ]
+                },
+                {
+                    id: 'mod2',
+                    title: "2. Calculate Load Weight",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 2: Calculating Load Weight</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>You cannot rig a load safely if you don't know what it weighs. Use math when shipping documents or manufacturer tags are unavailable.</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Rectangular Block:</strong> Length × Width × Height = Volume (ft³)</li>
+                                <li><strong>Cylinder:</strong> 3.14 × Radius² × Length = Volume (ft³) <em>(Radius is half the diameter)</em></li>
+                            </ul>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 mb-4 font-bold text-sm">
+                                <div class="bg-gray-800 p-2 text-center rounded border-b-2 border-simmco-orange">Steel: ~490 lbs/ft³</div>
+                                <div class="bg-gray-800 p-2 text-center rounded border-b-2 border-gray-400">Concrete: ~150 lbs/ft³</div>
+                                <div class="bg-gray-800 p-2 text-center rounded border-b-2 border-blue-400">Water: 62.4 lbs/ft³</div>
+                                <div class="bg-gray-800 p-2 text-center rounded border-b-2 border-yellow-700">Wood: ~45 lbs/ft³</div>
+                            </div>
+                            <p class="text-xl"><strong>Formula:</strong> Volume × Density = Total Weight</p>
+                            <div class="bg-gray-800 p-4 border-l-4 border-red-500 mt-4">
+                                <p><strong>Gross vs. Net Capacity:</strong> To find out what the crane can actually lift (Net Capacity), deduct the weight of all rigging equipment, hook block, jib, and hoist rope from the load chart's Gross Capacity.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="my-8 p-6 bg-gray-900 rounded-xl border border-gray-700 shadow-2xl">
+                            <h4 class="text-xl heading-font text-simmco-orange mb-4">Interactive Calculator</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div><label class="text-xs uppercase font-bold text-gray-400">Length (ft)</label><input type="number" id="calc-l" value="10" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white" oninput="app.calculateWeight()"></div>
+                                <div><label class="text-xs uppercase font-bold text-gray-400">Width (ft)</label><input type="number" id="calc-w" value="4" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white" oninput="app.calculateWeight()"></div>
+                                <div><label class="text-xs uppercase font-bold text-gray-400">Height (ft)</label><input type="number" id="calc-h" value="2" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white" oninput="app.calculateWeight()"></div>
+                            </div>
+                            <select id="calc-material" class="w-full bg-gray-800 border border-gray-600 rounded p-3 text-white mb-4" onchange="app.calculateWeight()">
+                                <option value="490">Solid Steel (~490 lbs/ft³)</option>
+                                <option value="150">Concrete (~150 lbs/ft³)</option>
+                            </select>
+                            <div class="bg-black border border-simmco-orange p-4 rounded text-center">
+                                <span class="block text-sm text-gray-400 mb-1">Total Weight</span>
+                                <span id="calc-result" class="text-3xl font-mono text-white font-bold">39,200 lbs</span>
+                            </div>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "What is the formula to find the volume of a rectangular block?", options: ["Length + Width + Height", "Length × Width × Height", "Length × Width ÷ Height"], answer: 1 },
+                        { q: "What is the approximate weight of one cubic foot of solid steel?", options: ["150 lbs", "490 lbs", "62.4 lbs"], answer: 1 },
+                        { q: "What is the formula to calculate the volume of a cylinder?", options: ["3.14 × Radius² × Length", "Length × Width × Height", "Base × Height ÷ 2"], answer: 0 },
+                        { q: "If a concrete block is 2ft x 2ft x 2ft, what is its approximate volume and weight?", options: ["4 cubic ft / 600 lbs", "8 cubic ft / 1,200 lbs", "6 cubic ft / 900 lbs"], answer: 1 },
+                        { q: "What is the approximate density of water?", options: ["45 lbs/ft³", "62.4 lbs/ft³", "100 lbs/ft³"], answer: 1 },
+                        { q: "How do you calculate the Total Weight of an object?", options: ["Volume ÷ Density", "Volume + Density", "Volume × Density"], answer: 2 },
+                        { q: "What must be deducted from Gross Capacity to find Net Capacity?", options: ["The weight of the crane operator", "Weight of hook block, rigging, and hoist rope", "Wind speed factor"], answer: 1 },
+                        { q: "If a solid steel plate measures 10ft long, 5ft wide, and 1ft thick, what is its weight?", options: ["12,500 lbs", "24,500 lbs", "49,000 lbs"], answer: 1 },
+                        { q: "What is the radius of a pipe if its diameter is 4 feet?", options: ["2 feet", "4 feet", "8 feet"], answer: 0 },
+                        { q: "What should you do if the load weight is completely unknown and cannot be calculated?", options: ["Guess based on size", "Do not attempt the lift until verified", "Pull slowly to see if the crane tips"], answer: 1 }
+                    ]
+                },
+                {
+                    id: 'mod3',
+                    title: "3. Hardware Selection",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 3: Hardware Selection</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>Every piece of hardware has a <strong>Working Load Limit (WLL)</strong>. You must NEVER exceed this limit. WLL is determined by dividing Breaking Strength by the Design Factor (usually 5:1).</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Wire Rope Slings:</strong> Durable, heat resistant. Susceptible to kinking.</li>
+                                <li><strong>Synthetic Web Slings:</strong> Protects delicate loads. HIGHLY susceptible to cuts. <em>Always use edge protection.</em></li>
+                                <li><strong>Alloy Chain:</strong> Only Grade 80 or Grade 100 chain is approved for overhead lifting.</li>
+                                <li><strong>Shackles:</strong> Screw-pin (temporary) vs. Bolt-type (permanent/rotating loads).</li>
+                            </ul>
+                            <div class="bg-gray-800 p-4 border-l-4 border-yellow-500 mt-4">
+                                <h4 class="font-bold text-white text-lg">The D/d Ratio</h4>
+                                <p>When wire rope (diameter d) bends around a load (Diameter D), it loses strength if bent too sharply. As a rule, the diameter of the object should be at least 25 times the diameter of the wire rope to maintain 100% capacity.</p>
+                            </div>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "What does WLL stand for?", options: ["Wire Load Limit", "Working Load Limit", "Weight Lifting Level"], answer: 1 },
+                        { q: "What is the standard design factor for rigging equipment?", options: ["2:1", "5:1", "10:1"], answer: 1 },
+                        { q: "What grade of chain is approved for overhead lifting?", options: ["Grade 30 or 40", "Grade 70 only", "Grade 80 or Grade 100"], answer: 2 },
+                        { q: "What is a major vulnerability of synthetic web slings?", options: ["Rusting", "Cuts from sharp edges", "Stretching indefinitely"], answer: 1 },
+                        { q: "When should you use a bolt-type shackle instead of a screw-pin?", options: ["When the load is light", "For permanent installations or when the load may rotate the pin", "Never"], answer: 1 },
+                        { q: "What does the D/d ratio refer to?", options: ["Distance over drag", "Diameter of the load bent around vs. diameter of the wire rope", "Density divided by diameter"], answer: 1 },
+                        { q: "If wire rope is bent around a sharp corner, what happens to its capacity?", options: ["It stays the same", "It increases", "It drastically decreases"], answer: 2 },
+                        { q: "Unshouldered eyebolts are approved for what type of lift?", options: ["Straight vertical lifts only", "Angular lifts up to 45 degrees", "Any angular lift"], answer: 0 },
+                        { q: "What must you always use with synthetic slings on sharp corners?", options: ["Lubrication", "Softeners or Edge Protection", "Duct tape"], answer: 1 },
+                        { q: "If you cannot read the manufacturer's tag on a sling, what should you do?", options: ["Remove it from service immediately", "Calculate capacity based on thickness", "Use it only for light loads"], answer: 0 }
+                    ]
+                },
+                {
+                    id: 'mod4',
+                    title: "4. Rigging Inspection",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 4: Inspection & Rejection</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>Rigging must be inspected prior to each shift and immediately removed from service if defects are found.</p>
+                            <h3 class="text-xl font-bold text-white mt-4">Removal Criteria</h3>
+                            <ul class="list-disc pl-5">
+                                <li><strong>Wire Rope:</strong> 10 randomly distributed broken wires in one lay length, or 5 broken wires in one strand in one lay length. Severe kinking, crushing, or "bird caging".</li>
+                                <li><strong>Synthetic Slings:</strong> Acid/caustic burns, melting, snags, punctures, or red warning yarns showing.</li>
+                                <li><strong>Hardware (Shackles/Hooks):</strong> Wear exceeding 10% of original dimension, or an increase in hook throat opening of more than 5% (or 1/4 inch max). Any visible bending or twisting.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-8 p-6 bg-gray-900 rounded-xl border border-gray-700 shadow-xl">
+                            <h4 class="text-xl heading-font text-simmco-orange mb-4">Interactive Hazard Hunt</h4>
+                            <p class="text-sm text-gray-400 mb-4">Inspect the items below. Click on any item that shows rejection criteria to immediately remove it from service.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                                <div id="hunt-1" class="cursor-pointer bg-gray-800 p-4 rounded border-2 border-transparent hover:border-red-500 transition-colors" onclick="app.huntItem('hunt-1', true, 'Correct! Red core warning yarns are showing on this synthetic sling. It must be destroyed.')">
+                                    <div class="h-16 bg-yellow-400 mb-2 relative overflow-hidden rounded"><div class="absolute top-1/2 left-1/4 w-8 h-2 bg-red-600 transform -translate-y-1/2"></div></div>
+                                    <span class="text-sm font-bold text-white">Synthetic Sling</span>
+                                </div>
+                                <div id="hunt-2" class="cursor-pointer bg-gray-800 p-4 rounded border-2 border-transparent hover:border-green-500 transition-colors" onclick="app.huntItem('hunt-2', false, 'Incorrect. This screw-pin shackle shows no wear or deformation. It is safe to use.')">
+                                    <div class="h-16 flex justify-center items-center text-4xl">🧲</div>
+                                    <span class="text-sm font-bold text-white">Screw-Pin Shackle</span>
+                                </div>
+                                <div id="hunt-3" class="cursor-pointer bg-gray-800 p-4 rounded border-2 border-transparent hover:border-red-500 transition-colors" onclick="app.huntItem('hunt-3', true, 'Correct! This wire rope is crushed and bird-caging. Remove from service immediately.')">
+                                    <div class="h-16 flex justify-center items-center text-4xl">🪢</div>
+                                    <span class="text-sm font-bold text-white">Wire Rope</span>
+                                </div>
+                            </div>
+                            <div id="hunt-feedback" class="mt-4 text-center font-bold hidden p-3 rounded shadow-inner"></div>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "When must rigging equipment be inspected?", options: ["Annually", "Monthly", "Prior to use on each shift"], answer: 2 },
+                        { q: "What is the broken wire rejection criteria for standard wire rope slings?", options: ["1 broken wire total", "10 broken wires in one lay, or 5 in one strand in one lay", "20 broken wires in one lay"], answer: 1 },
+                        { q: "What is 'bird caging'?", options: ["Storing slings high off the ground", "A severe spreading of wire rope strands outward", "A type of basket hitch"], answer: 1 },
+                        { q: "If you see red warning yarns exposed inside a synthetic sling, you should:", options: ["Sew them back in", "Remove the sling from service immediately", "Use it only at 50% capacity"], answer: 1 },
+                        { q: "What is the maximum allowable wear on a shackle before rejection?", options: ["5%", "10%", "25%"], answer: 1 },
+                        { q: "An increase in a hook's throat opening of more than what percentage requires removal?", options: ["1%", "5%", "15%"], answer: 1 },
+                        { q: "If a screw-pin on a shackle is slightly bent, you should:", options: ["Straighten it with a hammer", "Replace just the pin with a standard bolt", "Remove the entire shackle from service"], answer: 2 },
+                        { q: "Heat damage on a synthetic sling typically looks like:", options: ["Rust", "Melting, charring, or weld spatter", "Fraying on the edges"], answer: 1 },
+                        { q: "Can you legally field-weld a cracked lifting hook to repair it?", options: ["Yes, if done by a certified welder", "Yes, for temporary use", "No, never field-weld lifting hardware"], answer: 2 },
+                        { q: "If a sling tag is missing or illegible, the rigger must:", options: ["Remove the sling from service", "Write a new tag based on memory", "Paint the WLL on the sling"], answer: 0 }
+                    ]
+                },
+                {
+                    id: 'mod5',
+                    title: "5. Hitches & Sling Angles",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 5: Hitches & Sling Angles</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>How you attach a sling to the load changes its capacity drastically.</p>
+                            <ul class="list-disc pl-5">
+                                <li><strong>Vertical (100% WLL):</strong> Straight up and down.</li>
+                                <li><strong>Choker (~75% WLL):</strong> Wrapping the sling around the load and through itself. Capacity drops by 25% or more.</li>
+                                <li><strong>Basket (200% WLL):</strong> Cradling the load, with both legs going up to the hook. *Legs must be perfectly vertical to achieve 200%.</li>
+                            </ul>
+                            <div class="bg-gray-800 p-4 border-l-4 border-red-500 mt-6">
+                                <h3 class="text-xl font-bold text-white mb-2">The Danger of Sling Angles</h3>
+                                <p>As the horizontal angle of a sling decreases (flattens out), the tension stress on the sling drastically INCREASES.</p>
+                                <ul class="list-disc pl-5 mt-2 text-sm">
+                                    <li><strong>90° Angle:</strong> Perfect vertical alignment. Slings merge at the hook directly over the Center of Gravity.</li>
+                                    <li><strong>60° Angle:</strong> The recommended minimum angle for ideal standard rigging to maintain stability and prevent excessive tension.</li>
+                                    <li><strong>30° Angle:</strong> Tension doubles! Each sling holds 1,000 lbs just to lift a 1,000 lb load. <strong>OSHA and ASME prohibit any angle below 30 degrees horizontally without engineering approval.</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-6 bg-gray-900 rounded-xl border border-gray-700 shadow-xl">
+                            <h4 class="text-xl heading-font text-simmco-orange mb-2">Sling Angle Tension Simulator & Visualizer</h4>
+                            <p class="text-sm text-gray-400 mb-6">Select your parameters below. Note: Sling angle is measured upward from the horizontal plane of the load (90° = vertical).</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Total Load Weight (lbs)</label>
+                                    <input type="number" id="rig-load-wt" value="10000" class="w-full bg-gray-800 border border-gray-600 rounded p-3 text-white text-lg font-mono" oninput="app.updateRiggingCalc()">
+                                </div>
+                                <div>
+                                    <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Hitch Type</label>
+                                    <select id="rig-hitch" class="w-full bg-gray-800 border border-gray-600 rounded p-3 text-white text-lg" onchange="app.updateRiggingCalc()">
+                                        <option value="1.0">Vertical Hitch (100% Capacity)</option>
+                                        <option value="0.75">Choker Hitch (75% Capacity)</option>
+                                        <option value="2.0">Basket Hitch (200% Capacity - Vertical Legs)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Angle of the Sling from the Horizontal of the Load</label>
+                                <div class="grid grid-cols-4 gap-2 mb-4">
+                                    <button type="button" onclick="app.setRigAngle(90)" class="bg-gray-800 hover:bg-simmco-orange border border-gray-600 p-2 rounded text-white font-bold transition-colors cursor-pointer">90° (Vertical)</button>
+                                    <button type="button" onclick="app.setRigAngle(60)" class="bg-gray-800 hover:bg-simmco-orange border border-gray-600 p-2 rounded text-white font-bold transition-colors cursor-pointer">60°</button>
+                                    <button type="button" onclick="app.setRigAngle(45)" class="bg-gray-800 hover:bg-simmco-orange border border-gray-600 p-2 rounded text-white font-bold transition-colors cursor-pointer">45°</button>
+                                    <button type="button" onclick="app.setRigAngle(30)" class="bg-gray-800 hover:bg-simmco-orange border border-gray-600 p-2 rounded text-white font-bold transition-colors cursor-pointer">30° (Min OSHA)</button>
+                                </div>
+                                <input type="range" id="rig-angle-slider" min="30" max="90" value="60" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer" oninput="app.updateRiggingCalc()">
+                                <div class="flex justify-between text-xs text-gray-400 mt-1 font-mono">
+                                    <span>30° (OSHA Min)</span>
+                                    <span>45°</span>
+                                    <span>60° (Recommended)</span>
+                                    <span>90° (Vertical)</span>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic SVG Visualizer -->
+                            <div class="w-full h-48 bg-black rounded-xl flex justify-center items-end pb-4 overflow-hidden border border-gray-700 mb-6">
+                                <svg viewBox="0 0 300 120" class="w-full h-full max-w-lg">
+                                    <rect x="20" y="100" width="260" height="18" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2" rx="2"/>
+                                    <text x="150" y="113" fill="white" font-size="9" font-weight="bold" text-anchor="middle">LOAD (CENTER OF GRAVITY)</text>
+                                    <circle cx="150" cy="109" r="3" fill="#facc15"/>
+                                    
+                                    <!-- Dynamic Pick Points and Slings -->
+                                    <circle id="svg-pick-l" cx="103.9" cy="100" r="4" fill="white"/>
+                                    <circle id="svg-pick-r" cx="196.1" cy="100" r="4" fill="white"/>
+                                    <line id="svg-sling-l" x1="103.9" y1="100" x2="150" y2="25" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+                                    <line id="svg-sling-r" x1="196.1" y1="100" x2="150" y2="25" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+                                    
+                                    <!-- Crane Hook -->
+                                    <rect x="145" y="5" width="10" height="22" fill="#9ca3af" rx="2"/>
+                                    <path d="M150,20 Q155,28 150,33 Q145,28 150,20" fill="#9ca3af"/>
+                                    <polygon points="150,33 146,40 154,40" fill="#facc15"/>
+                                </svg>
+                            </div>
+
+                            <div class="bg-black border-2 border-simmco-orange p-6 rounded-xl grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                                <div>
+                                    <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Load Horizontal Angle</span>
+                                    <span id="rig-out-angle" class="text-3xl font-mono text-white font-bold">60°</span>
+                                </div>
+                                <div>
+                                    <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Tension Per Sling Leg</span>
+                                    <span id="rig-out-tension" class="text-3xl font-mono text-simmco-orange font-bold">5,774 lbs</span>
+                                </div>
+                                <div>
+                                    <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Compliance Status</span>
+                                    <span id="rig-out-status" class="text-sm font-bold px-3 py-1 rounded inline-block mt-1 bg-green-900 text-green-300 border border-green-500">SAFE (OPTIMAL)</span>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "Which hitch generally provides 100% of the sling's rated capacity?", options: ["Choker", "Vertical", "Inverted"], answer: 1 },
+                        { q: "A choker hitch reduces a sling's capacity by approximately how much?", options: ["0%", "25%", "50%"], answer: 1 },
+                        { q: "To achieve 200% capacity in a basket hitch, the legs must be:", options: ["Angled at 45 degrees", "Perfectly vertical (90 degrees)", "Crossed over the load"], answer: 1 },
+                        { q: "As a sling angle decreases (flattens) horizontally, what happens to the tension on the sling?", options: ["It decreases", "It stays the same", "It drastically increases"], answer: 2 },
+                        { q: "At what horizontal angle does the tension on each sling equal the total weight of the load?", options: ["60 degrees", "45 degrees", "30 degrees"], answer: 2 },
+                        { q: "What is the absolute minimum allowable horizontal sling angle under OSHA/ASME rules (prohibited below this point)?", options: ["15 degrees", "30 degrees", "60 degrees"], answer: 1 },
+                        { q: "When using a choker hitch, where should the choke point (the eye) rest?", options: ["Directly on a sharp corner", "On the body of the sling, not on the fitting/splice", "Inside the hook"], answer: 1 },
+                        { q: "Why is a flat sling angle dangerous?", options: ["It makes the crane tip over", "It creates massive crushing force on the load and extreme tension on the sling", "It untwists the wire rope"], answer: 1 },
+                        { q: "If a 2,000 lb load is lifted with two vertical slings (90 degrees), how much weight is on each sling?", options: ["500 lbs", "1,000 lbs", "2,000 lbs"], answer: 1 },
+                        { q: "What happens to the sling tension if you increase the horizontal angle from 45° to 60°?", options: ["Tension increases", "Tension decreases", "Tension drops to zero"], answer: 1 }
+                    ]
+                },
+                {
+                    id: 'mod6',
+                    title: "6. Center of Gravity",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 6: Center of Gravity & Balance</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>The Center of Gravity (CG) is the point where the load's weight is perfectly concentrated and balanced.</p>
+                            <ul class="list-disc pl-5">
+                                <li>The crane hook <strong>MUST</strong> be positioned directly over the CG before lifting.</li>
+                                <li>If the hook is not over the CG, the load will swing violently towards the CG when lifted. This causes shock-loading and can overturn the crane.</li>
+                                <li>For asymmetrical loads (heavier on one side), the CG is closer to the heavy end. You must adjust your sling lengths so the hook remains directly over the CG.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-8 p-6 bg-gray-900 rounded-xl border border-gray-700 shadow-xl">
+                            <h4 class="text-xl heading-font text-simmco-orange mb-4">Center of Gravity Balancer</h4>
+                            <p class="text-sm text-gray-400 mb-4">This load is heavier on the right side. Slide the crane hook left or right. You must place it directly over the true Center of Gravity (CG) before lifting.</p>
+                            
+                            <input type="range" id="sim-cog-slider" min="10" max="90" value="30" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer mb-6" oninput="app.updateCogSim(this.value)">
+                            
+                            <div class="relative w-full h-32 bg-gray-800 rounded overflow-hidden flex items-center border border-gray-700">
+                                <div id="sim-cog-hook" class="absolute top-0 bottom-0 w-0.5 bg-gray-300 z-10 pointer-events-none" style="left: 30%; transition: left 0.1s;">
+                                    <div class="absolute top-0 -left-2 w-4 h-8 bg-gray-400 rounded-b-md"></div>
+                                    <div class="absolute bottom-6 -left-3 w-6 h-6 border-4 border-gray-400 rounded-full border-t-transparent transform rotate-45"></div>
+                                </div>
+                                <div class="absolute w-3/4 h-16 bg-gradient-to-r from-blue-400 to-blue-900 border-2 border-blue-300 rounded left-[12.5%] flex flex-col justify-center items-center shadow-lg">
+                                    <span class="text-white text-xs font-bold tracking-widest">HEAVY END &rarr;</span>
+                                    <div class="absolute bottom-0 w-4 h-4 bg-yellow-400 rounded-t-full" style="left: 75%; transform: translateX(-50%);"></div>
+                                </div>
+                            </div>
+                            <div id="sim-cog-feedback" class="mt-4 text-center font-bold text-yellow-500 bg-black p-3 rounded">Find the exact balance point over the yellow marker.</div>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "What is the Center of Gravity (CG)?", options: ["The physical center of the object", "The point where the weight is perfectly concentrated and balanced", "The heaviest part of the crane"], answer: 1 },
+                        { q: "Where must the crane hook be positioned before a lift?", options: ["Directly over the Center of Gravity", "Directly over the physical center of the load", "At the very end of the load"], answer: 0 },
+                        { q: "What happens if the hook is NOT directly over the CG when the lift begins?", options: ["The crane gains capacity", "The load will swing violently towards the CG", "The slings will immediately snap"], answer: 1 },
+                        { q: "On an asymmetrical load (heavier on one end), where is the CG located?", options: ["In the exact middle", "Closer to the lighter end", "Closer to the heavier end"], answer: 2 },
+                        { q: "How do you compensate for a load that is heavier on one end?", options: ["Use a longer sling on the heavy end", "Use a shorter sling on the heavy end to keep the hook over the CG", "Use the same length slings and pull sideways"], answer: 1 },
+                        { q: "When a load swings upon liftoff, what dangerous condition is created?", options: ["Dynamic Shock-Loading", "Static Friction", "Cavitation"], answer: 0 },
+                        { q: "If a load tilts after picking 2 inches, you should:", options: ["Set it back down and re-rig to adjust the CG", "Have workers pull down on the high end", "Hoist faster to clear obstacles"], answer: 0 },
+                        { q: "Should you ever use workers' body weight to balance a load in the air?", options: ["Yes, if the load is light", "No, never", "Only if they have fall protection"], answer: 1 },
+                        { q: "What is the primary danger of a swinging load?", options: ["It scratches the paint", "It introduces side-loading on the crane boom, which it is not designed to handle", "It tangles the slings"], answer: 1 },
+                        { q: "Which tool is best for safely controlling load rotation once it is in the air?", options: ["Hands on the load", "A tag line", "A wooden stick"], answer: 1 }
+                    ]
+                },
+                {
+                    id: 'mod7',
+                    title: "7. Crane Setup Hazards",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 7: Setup & Site Hazards</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>Riggers must inspect the site before the crane arrives.</p>
+                            <ul class="list-disc pl-5">
+                                <li><strong>Power Lines (OSHA 1926.1408):</strong> Cranes must maintain a minimum of <strong>20 feet</strong> of clearance from power lines up to 350 kV (and 10 feet for lines up to 50 kV). Assume all lines are energized.</li>
+                                <li><strong>Ground Conditions:</strong> Cranes apply massive pressure through their outriggers. The ground must be firm, drained, and graded. Always use outrigger pads or mats to distribute the load over a larger area.</li>
+                                <li><strong>Wind:</strong> Wind creates a "sail area" on large loads, acting like a parachute and pushing the crane boom laterally. Know your crane's maximum allowable wind speed.</li>
+                            </ul>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "Under OSHA 1926.1408, what is the default minimum clearance distance a crane must maintain from power lines (up to 350 kV)?", options: ["10 feet", "20 feet", "50 feet"], answer: 1 },
+                        { q: "If you cannot determine the voltage of a power line, what must you assume?", options: ["It is a telephone line", "It is de-energized", "It is energized and dangerous"], answer: 2 },
+                        { q: "What is the purpose of outrigger mats or cribbing?", options: ["To keep the outriggers clean", "To distribute the massive downward force over a larger area of soil", "To make the crane sit higher"], answer: 1 },
+                        { q: "What happens if an outrigger punches through soft soil during a lift?", options: ["The crane will likely overturn instantly", "The operator just lowers the load", "The outrigger automatically retracts"], answer: 0 },
+                        { q: "How does wind affect a lifting operation?", options: ["It cools the engine", "It creates a 'sail effect', pushing the load and sideloading the boom", "It makes the cable stronger"], answer: 1 },
+                        { q: "If lightning is observed near the job site, what is the safest action?", options: ["Keep working quickly", "Lower the boom and halt all lifts until the storm passes", "Ground the load to a water pipe"], answer: 1 },
+                        { q: "Can a crane be set up directly over an underground utility or void?", options: ["Yes, if mats are used", "No, the outrigger pressure can collapse the void", "Only if the load is under 10,000 lbs"], answer: 1 },
+                        { q: "Who is responsible for ensuring the ground conditions are adequate for the crane?", options: ["The controlling entity / site supervisor", "The signal person", "The rigger"], answer: 0 },
+                        { q: "Is it acceptable to block under an outrigger float (pad) with cinder blocks?", options: ["Yes", "No, only solid wood or engineered mats should be used", "Yes, if they are filled with concrete"], answer: 1 },
+                        { q: "When working near power lines, a dedicated spotter is required if:", options: ["The crane comes within the minimum clearance distance", "The crane operator is tired", "The load is heavy"], answer: 0 }
+                    ]
+                },
+                {
+                    id: 'mod8',
+                    title: "8. Signaling",
+                    content: `
+                        <h2 class="text-3xl font-bold heading-font text-white mb-4">Module 8: Mobile Crane Hand Signals</h2>
+                        <div class="space-y-4 text-gray-300">
+                            <p>Only ONE person is allowed to signal the crane operator, with one critical exception: <strong>Anyone can give the STOP or EMERGENCY STOP signal.</strong> Signals must be clear, standard, and continuous.</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 text-sm font-bold">
+                                
+                                <!-- HOIST -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-simmco-orange flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <path d="M50 45 L75 45 L75 15" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+                                            <path d="M65 5 A 12 12 0 1 1 85 5" fill="none" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                                            <polygon points="65,5 70,0 70,10" fill="#f97316"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">HOIST</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Forearm vertical, forefinger pointing up, move hand in small horizontal circles.</p>
+                                    </div>
+                                </div>
+
+                                <!-- LOWER -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-simmco-orange flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <path d="M50 45 L75 45 L75 80" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+                                            <path d="M65 90 A 12 12 0 1 1 85 90" fill="none" stroke="#f97316" stroke-width="3" stroke-linecap="round"/>
+                                            <polygon points="65,90 70,85 70,95" fill="#f97316"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">LOWER</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Arm extended downward, forefinger pointing down, move hand in small circles.</p>
+                                    </div>
+                                </div>
+
+                                <!-- BOOM UP -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-blue-500 flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="50" y1="45" x2="85" y2="45" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="85" y1="45" x2="85" y2="25" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">BOOM UP</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Arm extended, fingers closed, thumb pointing upward.</p>
+                                    </div>
+                                </div>
+
+                                <!-- BOOM DOWN -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-blue-500 flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="50" y1="45" x2="85" y2="45" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="85" y1="45" x2="85" y2="65" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">BOOM DOWN</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Arm extended, fingers closed, thumb pointing downward.</p>
+                                    </div>
+                                </div>
+
+                                <!-- STOP -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-red-500 flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="50" y1="45" x2="85" y2="45" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <path d="M65 30 L95 30 M65 30 L75 20 M65 30 L75 40" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">STOP</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Arm extended, palm down, move arm back and forth.</p>
+                                    </div>
+                                </div>
+
+                                <!-- EMERGENCY STOP -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-red-600 flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="15" y1="45" x2="85" y2="45" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <path d="M65 30 L95 30 M65 30 L75 20 M65 30 L75 40 M35 30 L5 30 M35 30 L25 20 M35 30 L25 40" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">EMERGENCY STOP</h4>
+                                        <p class="text-gray-400 font-normal mt-1">BOTH arms extended, palms down, move arms back and forth.</p>
+                                    </div>
+                                </div>
+
+                                <!-- SWING -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-purple-500 flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <line x1="50" y1="45" x2="85" y2="45" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <path d="M65 60 Q 80 60 95 45" fill="none" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+                                            <polygon points="95,45 90,52 100,50" fill="#a855f7"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">SWING</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Arm extended horizontally, point with finger in direction of swing.</p>
+                                    </div>
+                                </div>
+
+                                <!-- DOG EVERYTHING -->
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-green-500 flex items-center gap-4">
+                                    <div class="w-20 shrink-0">
+                                        <svg viewBox="0 0 100 100" class="w-16 h-16 text-white mx-auto">
+                                            <circle cx="50" cy="25" r="12" fill="currentColor"/>
+                                            <line x1="50" y1="37" x2="50" y2="90" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                                            <rect x="30" y="65" width="40" height="12" rx="4" fill="#22c55e" stroke="white" stroke-width="2"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white text-lg">DOG EVERYTHING</h4>
+                                        <p class="text-gray-400 font-normal mt-1">Hands clasped together in front of body at waist level (Pause all operations).</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    `,
+                    quiz: [
+                        { q: "How many people are authorized to signal the crane operator during a lift?", options: ["Anyone who wants to", "Two people, one at each end", "Only ONE designated signal person"], answer: 2 },
+                        { q: "Who has the responsibility to give a STOP or EMERGENCY STOP signal?", options: ["Only the designated signal person", "Anyone on the job site", "Only the site superintendent"], answer: 1 },
+                        { q: "What is the standard signal for HOIST?", options: ["Thumb pointing up", "Forearm vertical, forefinger pointing up, small circle", "Both arms up"], answer: 1 },
+                        { q: "Arm extended, fingers closed, thumb pointing UP means:", options: ["Hoist", "Boom Up", "Everything is okay"], answer: 1 },
+                        { q: "What is the signal for EMERGENCY STOP?", options: ["One arm waving", "Both arms extended, palms down, moving horizontally", "Fist on head"], answer: 1 },
+                        { q: "If the operator loses sight of the signal person, the operator must:", options: ["Guess the next move", "Stop all movement immediately until visual contact is restored", "Look for someone else to signal"], answer: 1 },
+                        { q: "What does clasping hands together in front of the body at waist level mean?", options: ["Good job", "Dog Everything (Pause all crane functions)", "Lunch time"], answer: 1 },
+                        { q: "To signal SWING, the signal person should:", options: ["Point finger in the direction of the swing", "Wave both hands in a circle", "Point to the ground"], answer: 0 },
+                        { q: "Arm extended downward, forefinger pointing down, moving in a small circle means:", options: ["Boom Down", "Lower", "Stop"], answer: 1 },
+                        { q: "When using voice radios for signaling, what is a crucial requirement?", options: ["Constant continuous communication; if communication drops, operator stops", "Yelling loudly", "Speaking multiple languages"], answer: 0 }
+                    ]
+                }
+            ],
+
+            init: function() {
+                const savedState = localStorage.getItem('simmcoState');
+                if (savedState) {
+                    try {
+                        this.state = JSON.parse(savedState);
+                        if (this.state.student && this.state.student.name) {
+                            this.showCourse();
+                            return;
+                        }
+                    } catch (e) {
+                        console.error("Error loading state", e);
+                    }
+                }
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const dateEl = document.getElementById('reg-date');
+                if (dateEl) {
+                    dateEl.value = `${year}-${month}-${day}`;
+                }
+            },
+
+            saveState: function() {
+                localStorage.setItem('simmcoState', JSON.stringify(this.state));
+            },
+
+            registerStudent: function(e) {
+                e.preventDefault();
+                this.state.student = {
+                    name: document.getElementById('reg-name').value,
+                    id: document.getElementById('reg-id').value,
+                    date: document.getElementById('reg-date').value
+                };
+                this.saveState();
+                this.showCourse();
+            },
+
+            showCourse: function() {
+                document.getElementById('view-registration').classList.add('hidden');
+                document.getElementById('view-course').classList.remove('hidden');
+                
+                const headerInfo = document.getElementById('header-student-info');
+                headerInfo.innerHTML = `${this.state.student.name} <br><span class="text-xs text-simmco-orange">${this.state.student.id}</span>`;
+                headerInfo.classList.remove('hidden');
+                
+                document.getElementById('progress-container').classList.remove('hidden');
+                
+                this.renderModuleList();
+                this.loadModule(this.state.currentModuleIndex);
+                this.updateProgress();
+            },
+
+            renderModuleList: function() {
+                const ul = document.getElementById('module-list');
+                ul.innerHTML = '';
+                
+                this.modules.forEach((mod, index) => {
+                    const isCompleted = this.state.completedModules.includes(index);
+                    const isLocked = index > 0 && !this.state.completedModules.includes(index - 1);
+                    
+                    let statusIcon = isLocked ? '🔒' : (isCompleted ? '✅' : '▶️');
+                    let classes = `p-3 rounded mb-2 text-sm font-bold flex items-center justify-between transition-colors ${
+                        index === this.state.currentModuleIndex ? 'bg-simmco-orange text-white' : 
+                        (isLocked ? 'bg-gray-800 text-gray-500 cursor-not-allowed opacity-50' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 cursor-pointer')
+                    }`;
+
+                    const li = document.createElement('li');
+                    li.className = classes;
+                    li.innerHTML = `<span>${mod.title}</span> <span>${statusIcon}</span>`;
+                    
+                    if (!isLocked) {
+                        li.onclick = () => this.loadModule(index);
+                    }
+                    ul.appendChild(li);
+                });
+                
+                if (this.state.completedModules.length === this.modules.length) {
+                    document.getElementById('certificate-banner').classList.remove('hidden');
+                }
+            },
+
+            loadModule: function(index) {
+                this.state.currentModuleIndex = index;
+                const mod = this.modules[index];
+                
+                document.getElementById('module-content').innerHTML = mod.content;
+                document.getElementById('quiz-container').classList.remove('hidden');
+                
+                const isCompleted = this.state.completedModules.includes(index);
+                
+                if (isCompleted) {
+                    document.getElementById('quiz-questions').innerHTML = '<div class="text-green-500 font-bold text-center text-xl">✅ You have already passed this module.</div>';
+                    document.getElementById('submit-quiz-btn').classList.add('hidden');
+                    document.getElementById('next-module-btn').classList.remove('hidden');
+                    if (index === this.modules.length - 1) {
+                        document.getElementById('next-module-btn').classList.add('hidden');
+                    }
+                } else {
+                    this.renderQuiz(mod.quiz);
+                    document.getElementById('submit-quiz-btn').classList.remove('hidden');
+                    document.getElementById('next-module-btn').classList.add('hidden');
+                    if (index === 4) {
+                        setTimeout(() => this.updateRiggingCalc(), 50);
+                    }
+                }
+                
+                document.getElementById('quiz-feedback').classList.add('hidden');
+                this.renderModuleList();
+                window.scrollTo(0, 0);
+            },
+
+            renderQuiz: function(questions) {
+                const container = document.getElementById('quiz-questions');
+                container.innerHTML = '';
+                
+                questions.forEach((q, qIndex) => {
+                    const qDiv = document.createElement('div');
+                    qDiv.className = 'bg-gray-800 p-4 rounded-lg border border-gray-700';
+                    let html = `<p class="font-bold text-white mb-3 text-lg">${qIndex + 1}. ${q.q}</p><div class="space-y-2">`;
+                    
+                    q.options.forEach((opt, optIndex) => {
+                        html += `
+                            <label class="flex items-center space-x-3 p-3 rounded hover:bg-gray-700 cursor-pointer transition-colors">
+                                <input type="radio" name="q${qIndex}" value="${optIndex}" class="form-radio">
+                                <span class="text-gray-300 text-lg">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                    qDiv.innerHTML = html;
+                    container.appendChild(qDiv);
+                });
+            },
+
+            submitQuiz: function() {
+                const mod = this.modules[this.state.currentModuleIndex];
+                let score = 0;
+                let allAnswered = true;
+
+                mod.quiz.forEach((q, index) => {
+                    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                    if (!selected) { allAnswered = false; } 
+                    else if (parseInt(selected.value) === q.answer) { score++; }
+                });
+
+                const feedback = document.getElementById('quiz-feedback');
+                feedback.classList.remove('hidden');
+
+                if (!allAnswered) {
+                    feedback.className = 'mt-6 p-4 rounded-lg font-bold text-center bg-yellow-900/50 text-yellow-500 border border-yellow-500';
+                    feedback.innerHTML = '⚠️ Please answer all questions before submitting.';
+                    return;
+                }
+
+                if (score === mod.quiz.length) {
+                    feedback.className = 'mt-6 p-4 rounded-lg font-bold text-center bg-green-900/50 text-green-400 border border-green-500';
+                    feedback.innerHTML = '✅ 100% - Perfect Score! Module Passed.';
+                    
+                    if (!this.state.completedModules.includes(this.state.currentModuleIndex)) {
+                        this.state.completedModules.push(this.state.currentModuleIndex);
+                        this.saveState();
+                        this.updateProgress();
+                    }
+                    
+                    document.getElementById('submit-quiz-btn').classList.add('hidden');
+                    if (this.state.currentModuleIndex < this.modules.length - 1) {
+                        document.getElementById('next-module-btn').classList.remove('hidden');
+                    } else {
+                        document.getElementById('certificate-banner').classList.remove('hidden');
+                        this.renderModuleList();
+                        this.showCertificate();
+                    }
+                } else {
+                    feedback.className = 'mt-6 p-4 rounded-lg font-bold text-center bg-red-900/50 text-red-400 border border-red-500';
+                    feedback.innerHTML = `❌ Score: ${Math.round((score/mod.quiz.length)*100)}%. You must score 100% to pass. Please review the material and try again.`;
+                }
+            },
+
+            nextModule: function() {
+                if (this.state.currentModuleIndex < this.modules.length - 1) {
+                    this.loadModule(this.state.currentModuleIndex + 1);
+                }
+            },
+
+            updateProgress: function() {
+                const percentage = (this.state.completedModules.length / this.modules.length) * 100;
+                document.getElementById('progress-bar').style.width = `${percentage}%`;
+            },
+            
+            calculateWeight: function() {
+                const l = parseFloat(document.getElementById('calc-l')?.value || 0);
+                const w = parseFloat(document.getElementById('calc-w')?.value || 0);
+                const h = parseFloat(document.getElementById('calc-h')?.value || 0);
+                const density = parseFloat(document.getElementById('calc-material')?.value || 0);
+                const weight = l * w * h * density;
+                const resultEl = document.getElementById('calc-result');
+                if (resultEl) resultEl.innerText = weight.toLocaleString() + ' lbs';
+            },
+
+            huntItem: function(id, isHazard, msg) {
+                const el = document.getElementById(id);
+                const feedback = document.getElementById('hunt-feedback');
+                feedback.classList.remove('hidden');
+                if (isHazard) {
+                    el.classList.replace('bg-gray-800', 'bg-red-900');
+                    el.classList.replace('border-transparent', 'border-red-500');
+                    feedback.innerText = msg;
+                    feedback.className = "mt-4 text-center font-bold p-3 rounded bg-red-900 text-white border border-red-500 shadow-inner";
+                } else {
+                    feedback.innerText = msg;
+                    feedback.className = "mt-4 text-center font-bold p-3 rounded bg-gray-700 text-white border border-gray-500 shadow-inner";
+                }
+            },
+
+            setRigAngle: function(angle) {
+                const slider = document.getElementById('rig-angle-slider');
+                if (slider) {
+                    slider.value = angle;
+                    this.updateRiggingCalc();
+                }
+            },
+
+            updateRiggingCalc: function() {
+                const loadWt = parseFloat(document.getElementById('rig-load-wt')?.value || 10000);
+                const angleSlider = document.getElementById('rig-angle-slider');
+                const angle = parseInt(angleSlider ? angleSlider.value : 60);
+
+                const angleOut = document.getElementById('rig-out-angle');
+                if (angleOut) angleOut.innerText = angle + '°';
+
+                let angleRad = angle * Math.PI / 180;
+                let tension = loadWt / (2 * Math.sin(angleRad));
+                
+                const tensionOut = document.getElementById('rig-out-tension');
+                if (tensionOut) tensionOut.innerText = Math.round(tension).toLocaleString() + ' lbs';
+
+                const statusEl = document.getElementById('rig-out-status');
+                if (statusEl) {
+                    if (angle < 30) {
+                        statusEl.className = "text-sm font-bold px-3 py-1 rounded inline-block mt-1 bg-red-900 text-red-300 border border-red-500";
+                        statusEl.innerText = "PROHIBITED (< 30°)";
+                    } else if (angle < 45) {
+                        statusEl.className = "text-sm font-bold px-3 py-1 rounded inline-block mt-1 bg-yellow-900 text-yellow-300 border border-yellow-500";
+                        statusEl.innerText = "CAUTION (High Tension)";
+                    } else {
+                        statusEl.className = "text-sm font-bold px-3 py-1 rounded inline-block mt-1 bg-green-900 text-green-300 border border-green-500";
+                        statusEl.innerText = "SAFE (OPTIMAL)";
+                    }
+                }
+
+                let height = 75;
+                let dx = height / Math.tan(angleRad);
+                if (angle === 90) dx = 0;
+                let xL = 150 - dx;
+                let xR = 150 + dx;
+
+                xL = Math.max(35, Math.min(145, xL));
+                xR = Math.max(155, Math.min(265, xR));
+
+                const pickL = document.getElementById('svg-pick-l');
+                const pickR = document.getElementById('svg-pick-r');
+                const slingL = document.getElementById('svg-sling-l');
+                const slingR = document.getElementById('svg-sling-r');
+
+                if (pickL && pickR && slingL && slingR) {
+                    pickL.setAttribute('cx', xL);
+                    pickR.setAttribute('cx', xR);
+                    slingL.setAttribute('x1', xL);
+                    slingR.setAttribute('x1', xR);
+                }
+            },
+
+            updateCogSim: function(val) {
+                document.getElementById('sim-cog-hook').style.left = val + '%';
+                let diff = Math.abs(val - 76.5);
+                let feedback = document.getElementById('sim-cog-feedback');
+                
+                if (diff < 4) {
+                    feedback.innerText = "✅ Hook is perfectly over the CG. Safe to lift.";
+                    feedback.className = "mt-4 text-center font-bold p-3 rounded bg-green-900 text-green-400 border border-green-500";
+                } else {
+                    feedback.innerText = "⚠️ Unsafe! Load will swing violently upon liftoff.";
+                    feedback.className = "mt-4 text-center font-bold p-3 rounded bg-red-900 text-red-400 border border-red-500";
+                }
+            },
+
+            showCertificate: function() {
+                document.getElementById('cert-student-name').innerText = this.state.student.name || 'Student Name';
+                document.getElementById('cert-student-id').innerText = this.state.student.id || 'EMP-123';
+                
+                let rawDate = this.state.student.date;
+                if (!rawDate) {
+                    const now = new Date();
+                    rawDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                }
+                
+                let parts = rawDate.split('-');
+                let displayDate = rawDate;
+                if (parts.length === 3) {
+                    displayDate = `${parts[1]}/${parts[2]}/${parts[0]}`;
+                }
+                document.getElementById('cert-completion-date').innerText = displayDate;
+                document.getElementById('certificate-modal').classList.remove('hidden');
+            },
+            
+            emailHR: function() {
+                const name = this.state.student.name || 'Student';
+                const id = this.state.student.id || 'N/A';
+                const subject = encodeURIComponent(`SIMMCO Academy Completion: ${name}`);
+                const body = encodeURIComponent(`HR Team,\n\nPlease be advised that ${name} (ID: ${id}) has successfully completed the SIMMCO Qualified Basic Rigger & Signal Person Academy.\n\nThank you.`);
+                
+                window.location.href = `mailto:wclements@blurtongroup.com,jbeck@blurtongroup.com?subject=${subject}&body=${body}`;
+                
+                setTimeout(() => {
+                    this.showToast("If your mail app didn't open, please email wclements@blurtongroup.com & jbeck@blurtongroup.com manually.");
+                }, 1200);
+            },
+
+            showToast: function(msg) {
+                const toast = document.getElementById('app-toast');
+                const msgEl = document.getElementById('toast-msg');
+                if (toast && msgEl) {
+                    msgEl.innerText = msg;
+                    toast.classList.remove('hidden');
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 6000);
+                }
+            }
+        };
+
+        window.onload = () => app.init();
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SIMMCO Service Worker registered successfully:', reg.scope))
+                    .catch(err => console.log('SIMMCO Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
